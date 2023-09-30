@@ -1,59 +1,47 @@
-FROM nvidia/cuda:11.7.0-base-ubuntu18.04
+FROM continuumio/miniconda3:22.11.1
+LABEL author="Alberto Polini"
 
-# Aggiornamento dei repository APT
-RUN apt-get update
 
-# Installazione dei pacchetti necessari
-RUN apt-get install -yq --no-install-recommends \
-    curl \
+RUN apt-get update && \
+    apt-get install -yq --no-install-recommends \
+    curl \ 
     wget \
     git \
     gnupg \
-    jq
-
+    jq 
+    
 
 # Nodejs required to install jupyter-lab extension
-RUN curl -fsSL https://deb.nodesource.com/setup_14.x  | bash - && \
+    
+RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
     apt-get install -y nodejs \
     build-essential && \
     node --version && \ 
     npm --version
 
-
-
-# Installazione di Miniconda
-RUN curl -fsSL https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o miniconda.sh && \
-    chmod +x miniconda.sh && \
-    ./miniconda.sh -b -p /opt/miniconda && \
-    rm miniconda.sh
+RUN conda install \
+    "jupyterlab>=3" "ipywidgets>=7.6" 
 
 
 
-# Aggiunta di Miniconda al PATH
-ENV PATH=/opt/miniconda/bin:$PATH
-
-# Installazione dei pacchetti conda e pip
-RUN conda install -y "jupyterlab>=3" "ipywidgets>=7.6" && \
-    pip install jupyterlab-nvdashboard
-
-#RUN jupyter labextension install jupyterlab-nvdashboard
-
-# Copia del file requirements.txt
 COPY requirements.txt .
 
 # Installazione dei pacchetti Python
 RUN pip install -r requirements.txt
 RUN pip install torch torchvision torchaudio
 
-# Impostazione del lavoro di lavoro
+
 WORKDIR /home
 
-# Esposizione della porta
+
 EXPOSE 8888
 
-# Impostazione del token di Jupyter
 ARG token_name=token
 ENV JUPYTER_TOKEN=$token_name
 
-# Avvio di Jupyter Lab
-CMD ["jupyter-lab", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
+# Aggiunte per controllare che il token sia preso correttamente
+RUN echo $token_name 
+RUN echo $JUPYTER_TOKEN 
+
+CMD ["jupyter-lab","--ip=0.0.0.0","--no-browser","--allow-root"]
+
