@@ -14,13 +14,18 @@ This repository contains implementations of main deep learning computer vision a
 
 Deep learning has revolutionized computer vision, and this repository aims to gather implementations of popular architectures, making it easy for researchers, practitioners, and enthusiasts to explore, learn, and experiment with these models.
 
+First steps with PyTorch;
+
+- [ ] Implementing a Neural Network in Pytorch
+- [ ] Convolutional Neural Network in Pytorch
+
+
 ## Architectures
 
 The following architectures are currently implemented:
-
-- [x] **ResNet**: Deep Residual Networks
-- [x] **VGG**: Visual Geometry Group Networks
-- [x] **AlexNet**: AlexNet: ImageNet Classification with Deep Convolutional Neural Networks
+- [ ] **AlexNet**: AlexNet: ImageNet Classification with Deep Convolutional Neural Networks
+- [ ] **ResNet**: Deep Residual Networks
+- [ ] **VGG**: Visual Geometry Group Networks
 - [ ] **DenseNet**: Densely Connected Convolutional Networks
 - [ ] **Inception**: Going Deeper with Convolutions
 - [ ] **MobileNet**: Efficient Convolutional Neural Networks for Mobile Vision Applications
