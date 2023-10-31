@@ -54,5 +54,5 @@ docker run -it \
 If you are using Rancher Desktop you should map the folder paths with 'mnt/c' 
 
 ## License
-This project is licensed under the MIT License - see the (LICENSE)[#LICENSE] file for details.
+This project is licensed under the MIT License - see the [LICENSE](#LICENSE) file for details.
 
